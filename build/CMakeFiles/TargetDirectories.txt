@@ -1,0 +1,3 @@
+/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles/ForensicToolDownloader.dir
+/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles/edit_cache.dir
+/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles/rebuild_cache.dir

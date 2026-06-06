@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "name": "Windows MinGW x64",
+      "compilerPath": "/usr/bin/x86_64-w64-mingw32-g++",
+      "cppStandard": "c++17",
+      "cStandard": "c17",
+      "intelliSenseMode": "windows-gcc-x64",
+      "defines": [
+        "UNICODE",
+        "_UNICODE",
+        "WIN32_LEAN_AND_MEAN",
+        "NOMINMAX"
+      ]
+    }
+  ],
+  "version": 4
+}
