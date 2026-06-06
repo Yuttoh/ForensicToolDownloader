@@ -31,4 +31,4 @@ Para adicionar mais botoes na aba `Scripts`, copie `scripts.example.ini` para `s
 
 ## Atalhos Windows
 
-A aba `Atalhos Windows` abre locais e paineis do Windows como Prefetch, Temp, Recent, Event Viewer, Services, Programas instalados e PSReadLine. Cada item mostra o comando equivalente do Windows+R no tooltip e possui botao `Copiar`.
+A aba `Atalhos Windows` abre locais e paineis do Windows como Prefetch, Temp, Recent, Event Viewer, Services, Programas instalados e PSReadLine. Cada item mostra o comando equivalente do Windows+R no tooltip e possui botao `Copiar`.# ForensicToolDownloader
