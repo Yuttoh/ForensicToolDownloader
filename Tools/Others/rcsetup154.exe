@@ -35,7 +35,7 @@
             SF.sandiego = true;
             SF.sandiego_chrome = true;
             SF.variant = 'sf';
-            SF.fpid = '2ebe503a-ce92-445d-b114-10c47e2bdcc8';
+            SF.fpid = 'f6597eb3-4760-4482-a570-6bd8265a1826';
             SF.comm_billboard_route = '/software/product/$slug/';
             SF.floatingSitewideOrigin = 'https://sourceforge.net';
             
@@ -120,7 +120,7 @@
             /*global unescape, window, console, jQuery, $, net, SF, bizx  */
             if (!window.SF) {
                 window.SF = {};
-            }SF.EU_country_codes = ["GP","PN","HU","DK","FI","GI","LT","PT","SE","LV","YT","AT","NL","MS","LI","GR","SI","GL","NC","BM","BL","CZ","RO","AI","RE","MT","FR","VG","HR","IS","SK","GG","MF","ES","EE","GS","IE","GF","SH","JE","MQ","SX","CY","BG","FK","IT","WF","BE","CW","NO","PM","AW","TF","IO","CH","ME","PF","KY","AX","LU","TC","GB","PL","DE"];
+            }SF.EU_country_codes = ["AX","IT","PT","BL","NL","ME","LT","RO","PF","VG","KY","SI","CW","TF","PN","BM","DE","PM","AT","CH","JE","LV","GG","AW","HU","GI","IO","GB","MF","CZ","SE","LU","YT","MQ","NO","GS","RE","BG","MS","FR","MT","NC","LI","SX","AI","TC","PL","FK","IS","FI","CY","GR","SH","DK","HR","IE","GF","WF","ES","BE","EE","SK","GL","GP"];
             SF.unknown_country_codes = ["","A1","A2","O1"];
         </script>
         
@@ -132,7 +132,7 @@
     
 
 
-        <style>.J205bcc332f928cca92bb41cfedd16837e147b6de { display: none !important; }</style>
+        <style>.Ka77381bf61d857240930c57b74a13a74565d7b32 { display: none !important; }</style>
 <link rel="alternate" type="application/rss+xml" title="Recuva&#8230;Recent Activity" href="/p/recuva/activity/feed"/>
 <link rel="alternate" type="application/rss+xml" title="Recuva&#8230;File Releases"
       href="/projects/recuva/rss?path=/"/>
@@ -1076,31 +1076,31 @@ src="//a.fsdn.com/allura/p/recuva/icon?471215b3c965375810cc5b673130e2f9e234876b8
     
 
     <div class="nel standard can-trunc  "
-        data-id="17887">
+        data-id="20018">
 
         
 
 
-<span id="fece7bd3-361b-42e9-8058-701752ded0ca"></span>
+<span id="7fd731d5-94e5-4e33-a614-11c974aea048"></span>
 <script>
     /* globals bizx */
-    bizx.cmp.trackingPixel('publisher', ['storage', 'measurement'], '/software/tp3/?b=71073&amp;c=13701&amp;z=68459&amp;cb=89f2559026&amp;rand=fece7bd3-361b-42e9-8058-701752ded0ca', "ContractSafe: Contract Management Software", 'fece7bd3-361b-42e9-8058-701752ded0ca');
+    bizx.cmp.trackingPixel('publisher', ['storage', 'measurement'], '/software/tp3/?b=79672&amp;c=15405&amp;z=77070&amp;cb=5aba3b6d53&amp;rand=7fd731d5-94e5-4e33-a614-11c974aea048', "D\u0026amp;B Hoovers is Your Sales Accelerator", '7fd731d5-94e5-4e33-a614-11c974aea048');
 </script>
 
 
         
-        <div class="application-image thumbnail"  data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website" data-newtab="true" data-target="_blank" rel="nofollow">
-            <img class="main-image" src="//a.fsdn.com/con/app/nel_img/17887" alt="ContractSafe: Contract Management Software Icon">
+        <div class="application-image thumbnail"  data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick" data-newtab="true" data-target="_blank" rel="nofollow">
+            <img class="main-image" src="//a.fsdn.com/con/app/nel_img/20018" alt="D&amp;B Hoovers is Your Sales Accelerator Icon">
             
         </div>
         <div class="wrapper">
             <div class="heading">
                 <div class="heading-main">
                     
-                    <span data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website" data-newtab="true" data-target="_blank" rel="nofollow" title="Find out more about ContractSafe: Contract Management Software">ContractSafe: Contract Management Software</span>
+                    <span data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick" data-newtab="true" data-target="_blank" rel="nofollow" title="Find out more about D&amp;B Hoovers is Your Sales Accelerator">D&amp;B Hoovers is Your Sales Accelerator</span>
 
                     
-                    <p class="teaser">Take Control Of  Your Contracts Without Wrecking The Budget</p>
+                    <p class="teaser">For sales teams that want to accelerate B2B sales with better data</p>
                 </div>
             </div>
 
@@ -1112,7 +1112,7 @@ src="//a.fsdn.com/allura/p/recuva/icon?471215b3c965375810cc5b673130e2f9e234876b8
                     
                     <div class="description ">
                         <div class="description-inner">
-                            Ditch those spreadsheets, shared drives &amp; crazy-expensive solutions with too many bells &amp; whistles. ContractSafe offers the simplest way to manage your contracts efficiently without breaking the bank.
+                            Speed up sales prospecting with the rich audience targeting capabilities of D&amp;B Hoovers so you can spend more sales time closing.
                         </div>
                     </div>
                 </div>
@@ -1133,9 +1133,9 @@ src="//a.fsdn.com/allura/p/recuva/icon?471215b3c965375810cc5b673130e2f9e234876b8
         
             
         
-        <div class="button green wide sfdl sfdl-lite" data-target="_blank" data-newtab="true" data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website"
+        <div class="button green wide sfdl sfdl-lite" data-target="_blank" data-newtab="true" data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick"
                 
-                    data-zone="68439" data-slug="ContractSafe"
+                    data-zone="77062" data-slug="DB-Hoovers"
                 >Learn More</div>
         </div>
 
@@ -1816,31 +1816,31 @@ src="//a.fsdn.com/allura/s/shieldapps-pcc/icon?5d21bca03d214af4941ccb1ea98d01a98
     
 
     <div class="nel standard can-trunc  "
-        data-id="17887">
+        data-id="20018">
 
         
 
 
-<span id="36d2e0b8-4c29-4db9-a8df-e031fd4ca924"></span>
+<span id="4531c490-d950-4d89-899e-11a872d84d83"></span>
 <script>
     /* globals bizx */
-    bizx.cmp.trackingPixel('publisher', ['storage', 'measurement'], '/software/tp3/?b=71073&amp;c=13701&amp;z=68459&amp;cb=89f2559026&amp;rand=36d2e0b8-4c29-4db9-a8df-e031fd4ca924', "ContractSafe: Contract Management Software", '36d2e0b8-4c29-4db9-a8df-e031fd4ca924');
+    bizx.cmp.trackingPixel('publisher', ['storage', 'measurement'], '/software/tp3/?b=79672&amp;c=15405&amp;z=77070&amp;cb=5aba3b6d53&amp;rand=4531c490-d950-4d89-899e-11a872d84d83', "D\u0026amp;B Hoovers is Your Sales Accelerator", '4531c490-d950-4d89-899e-11a872d84d83');
 </script>
 
 
         
-        <div class="application-image thumbnail"  data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website" data-newtab="true" data-target="_blank" rel="nofollow">
-            <img class="main-image" src="//a.fsdn.com/con/app/nel_img/17887" alt="ContractSafe: Contract Management Software Icon">
+        <div class="application-image thumbnail"  data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick" data-newtab="true" data-target="_blank" rel="nofollow">
+            <img class="main-image" src="//a.fsdn.com/con/app/nel_img/20018" alt="D&amp;B Hoovers is Your Sales Accelerator Icon">
             
         </div>
         <div class="wrapper">
             <div class="heading">
                 <div class="heading-main">
                     
-                    <span data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website" data-newtab="true" data-target="_blank" rel="nofollow" title="Find out more about ContractSafe: Contract Management Software">ContractSafe: Contract Management Software</span>
+                    <span data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick" data-newtab="true" data-target="_blank" rel="nofollow" title="Find out more about D&amp;B Hoovers is Your Sales Accelerator">D&amp;B Hoovers is Your Sales Accelerator</span>
 
                     
-                    <p class="teaser">Take Control Of  Your Contracts Without Wrecking The Budget</p>
+                    <p class="teaser">For sales teams that want to accelerate B2B sales with better data</p>
                 </div>
             </div>
 
@@ -1852,7 +1852,7 @@ src="//a.fsdn.com/allura/s/shieldapps-pcc/icon?5d21bca03d214af4941ccb1ea98d01a98
                     
                     <div class="description ">
                         <div class="description-inner">
-                            Ditch those spreadsheets, shared drives &amp; crazy-expensive solutions with too many bells &amp; whistles. ContractSafe offers the simplest way to manage your contracts efficiently without breaking the bank.
+                            Speed up sales prospecting with the rich audience targeting capabilities of D&amp;B Hoovers so you can spend more sales time closing.
                         </div>
                     </div>
                 </div>
@@ -1873,9 +1873,9 @@ src="//a.fsdn.com/allura/s/shieldapps-pcc/icon?5d21bca03d214af4941ccb1ea98d01a98
         
             
         
-        <div class="button green wide sfdl sfdl-lite" data-target="_blank" data-newtab="true" data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=71073__zoneid=68459__cb=89f2559026__oadest=https%3A%2F%2Fwww.contractsafe.com%2Fai-contract-management-demo%3Futm_source%3Dsf%26utm_medium%3Daggregator%26utm_campaign%3Dsourceforge_visit_website"
+        <div class="button green wide sfdl sfdl-lite" data-target="_blank" data-newtab="true" data-dest="https://sourceforge.net/software/link?oaparams=2__bannerid=79672__zoneid=77070__cb=5aba3b6d53__oadest=https%3A%2F%2Fwww.dnb.com%2Fen-gb%2Fproducts-and-services%2Fdun-bradstreet-hoovers.html%3Futm_campaign%3DSourceForge%2520Review%26utm_source%3Dsourceforge.net%26utm_medium%3Dclick"
                 
-                    data-zone="68439" data-slug="ContractSafe"
+                    data-zone="77062" data-slug="DB-Hoovers"
                 >Learn More</div>
         </div>
 
@@ -2559,7 +2559,7 @@ try{
 
         
         function loadimg(params, dimension_prefix) {
-            params = Object.assign({"idsite":1,"rec":1,"rand":66317,"dimension2":"pg_project","url":"https://sourceforge.net/projects/recuva/","action_name":"Recuva download | SourceForge.net"}, params);
+            params = Object.assign({"idsite":1,"rec":1,"rand":39323,"dimension2":"pg_project","url":"https://sourceforge.net/projects/recuva/","action_name":"Recuva download | SourceForge.net"}, params);
             for (var key in params) {
                 if (params.hasOwnProperty(key) && key.indexOf('dimension') === 0 && params[key] !== undefined) {
                     params[key] = (dimension_prefix||'') + params[key];
@@ -2621,7 +2621,7 @@ try{
             _ml = window._ml || {};
             
             _ml.eid = '771';
-            _ml.fp = '2ebe503a-ce92-445d-b114-10c47e2bdcc8';  
+            _ml.fp = 'f6597eb3-4760-4482-a570-6bd8265a1826';  
             var s = document.getElementsByTagName('script')[0], cd = new Date(), mltag = document.createElement('script');
             mltag.type = 'text/javascript';
             mltag.async = true;
@@ -2711,7 +2711,7 @@ try{
     $(function() {
         bizx.cmp.ifConsent({ purposes: 'all' , vendors: 'narrative'}, function() {
             var current_time = (new Date()).getTime();
-            let imageUrl = "https://io.narrative.io/?companyId=2440&id=first_party%3A2ebe503a-ce92-445d-b114-10c47e2bdcc8&id=site_name%3Asourceforge.net&id=url%3A%2Fprojects%2Frecuva%2F&id=pagetitle%3ARecuva+download+%7C+SourceForge.net&id=vertical%3AOpen+Source+Software&id=product%3ARecuva&id=topics%3APC+Cleaners";
+            let imageUrl = "https://io.narrative.io/?companyId=2440&id=first_party%3Af6597eb3-4760-4482-a570-6bd8265a1826&id=site_name%3Asourceforge.net&id=url%3A%2Fprojects%2Frecuva%2F&id=pagetitle%3ARecuva+download+%7C+SourceForge.net&id=vertical%3AOpen+Source+Software&id=product%3ARecuva&id=topics%3APC+Cleaners";
             imageUrl = imageUrl.replace(encodeURIComponent("$PAGE_TITLE"), document.title);  
 
             imageUrl = URL.parse(imageUrl);
