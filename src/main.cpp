@@ -24,6 +24,7 @@ constexpr int ID_DOWNLOAD_TAB = 1004;
 constexpr int ID_ASK_EXTRACT = 1005;
 constexpr int ID_ASK_DELETE = 1006;
 constexpr int ID_GRID_MODE = 1007;
+constexpr int ID_THEME_TOGGLE = 1008;
 
 constexpr int ID_TOOL_BUTTON_BASE = 2000;
 constexpr int ID_SCRIPT_BUTTON_BASE = 3000;
@@ -118,12 +119,28 @@ HWND g_gridModeCheck = nullptr;
 HWND g_tabs = nullptr;
 HWND g_contentPanel = nullptr;
 HWND g_tooltip = nullptr;
+HWND g_themeToggleButton = nullptr;
 
 HFONT g_font = nullptr;
 HFONT g_smallFont = nullptr;
 HBRUSH g_windowBrush = nullptr;
 HBRUSH g_panelBrush = nullptr;
 HBRUSH g_rowBrush = nullptr;
+HBRUSH g_borderBrush = nullptr;
+
+struct ThemeColors {
+    COLORREF window;
+    COLORREF panel;
+    COLORREF row;
+    COLORREF border;
+    COLORREF text;
+    COLORREF mutedText;
+    COLORREF editBackground;
+    COLORREF editText;
+};
+
+bool g_darkMode = false;
+ThemeColors g_theme{};
 
 std::vector<ToolItem> g_tools;
 std::vector<ScriptItem> g_scripts;
@@ -168,6 +185,17 @@ bool StartsWithInsensitive(const std::wstring& value, const std::wstring& prefix
         return false;
     }
     return ToLower(value.substr(0, prefix.size())) == ToLower(prefix);
+}
+
+bool EndsWithInsensitive(const std::wstring& value, const std::wstring& suffix) {
+    if (value.size() < suffix.size()) {
+        return false;
+    }
+    return ToLower(value.substr(value.size() - suffix.size())) == ToLower(suffix);
+}
+
+bool IsZipFile(const std::wstring& filename) {
+    return EndsWithInsensitive(filename, L".zip");
 }
 
 std::wstring WindowText(HWND hwnd) {
@@ -437,6 +465,60 @@ void ApplyFont(HWND hwnd, HFONT font = nullptr) {
     SendMessageW(hwnd, WM_SETFONT, reinterpret_cast<WPARAM>(font ? font : g_font), TRUE);
 }
 
+ThemeColors LightTheme() {
+    ThemeColors theme;
+    theme.window = RGB(240, 243, 248);
+    theme.panel = RGB(255, 255, 255);
+    theme.row = RGB(249, 250, 253);
+    theme.border = RGB(221, 226, 233);
+    theme.text = RGB(28, 33, 43);
+    theme.mutedText = RGB(104, 112, 126);
+    theme.editBackground = theme.panel;
+    theme.editText = RGB(28, 33, 43);
+    return theme;
+}
+
+ThemeColors DarkTheme() {
+    ThemeColors theme;
+    theme.window = RGB(23, 25, 30);
+    theme.panel = RGB(32, 35, 42);
+    theme.row = RGB(40, 44, 52);
+    theme.border = RGB(60, 65, 76);
+    theme.text = RGB(229, 233, 240);
+    theme.mutedText = RGB(157, 165, 179);
+    theme.editBackground = theme.panel;
+    theme.editText = RGB(229, 233, 240);
+    return theme;
+}
+
+void ApplyTheme(bool dark) {
+    g_darkMode = dark;
+    g_theme = dark ? DarkTheme() : LightTheme();
+
+    HBRUSH oldWindowBrush = g_windowBrush;
+    HBRUSH oldPanelBrush = g_panelBrush;
+    HBRUSH oldRowBrush = g_rowBrush;
+    HBRUSH oldBorderBrush = g_borderBrush;
+
+    g_windowBrush = CreateSolidBrush(g_theme.window);
+    g_panelBrush = CreateSolidBrush(g_theme.panel);
+    g_rowBrush = CreateSolidBrush(g_theme.row);
+    g_borderBrush = CreateSolidBrush(g_theme.border);
+
+    if (oldWindowBrush) DeleteObject(oldWindowBrush);
+    if (oldPanelBrush) DeleteObject(oldPanelBrush);
+    if (oldRowBrush) DeleteObject(oldRowBrush);
+    if (oldBorderBrush) DeleteObject(oldBorderBrush);
+
+    if (g_themeToggleButton) {
+        SetWindowTextW(g_themeToggleButton, dark ? L"Modo claro" : L"Modo escuro");
+    }
+
+    if (g_mainWindow) {
+        RedrawWindow(g_mainWindow, nullptr, nullptr, RDW_INVALIDATE | RDW_ERASE | RDW_ALLCHILDREN | RDW_UPDATENOW);
+    }
+}
+
 ToolItem MakeTool(const wchar_t* name,
                   const wchar_t* folder,
                   const wchar_t* url,
@@ -483,7 +565,7 @@ void InitializeTools() {
         MakeTool(L"AltDetector", L"Others",
                  L"https://github.com/Smoothzada/Minecraft-Alt-Detector/releases/download/Compiled/AltDetector.exe",
                  L"AltDetector.exe",
-                 L"Scanner de Alts do tal do Smoothzada", true),
+                 L"Scanner de Alts do tal do Smoothzada", false),
         MakeTool(L"Hollows Hunter", L"Others",
                  L"https://github.com/hasherezade/hollows_hunter/releases/download/v0.4.1.1/hollows_hunter64.exe",
                  L"hollows_hunter64.exe",
@@ -1329,6 +1411,7 @@ void CopyShortcutCommand(int index) {
 }
 
 void RenderContent();
+void LayoutMainWindow();
 
 bool HandleCommand(WPARAM wParam) {
     const int id = LOWORD(wParam);
@@ -1336,10 +1419,15 @@ bool HandleCommand(WPARAM wParam) {
 
     if (id == ID_SEARCH && code == EN_CHANGE) {
         RenderContent();
+        LayoutMainWindow();
         return true;
     }
     if (id == ID_GRID_MODE && code == BN_CLICKED) {
         RenderContent();
+        return true;
+    }
+    if (id == ID_THEME_TOGGLE && code == BN_CLICKED) {
+        ApplyTheme(!g_darkMode);
         return true;
     }
     if (id == ID_DOWNLOAD_ALL && code == BN_CLICKED) {
@@ -1410,6 +1498,10 @@ bool IsShortcutsTab() {
 
 bool IsDownloadTab() {
     return !IsScriptsTab() && !IsShortcutsTab();
+}
+
+bool IsSearchActive() {
+    return !WindowText(g_searchEdit).empty();
 }
 
 void StartDownloadCurrentTab() {
@@ -1499,11 +1591,100 @@ HWND CreateLabel(HWND parent, const std::wstring& text, DWORD style = SS_LEFT | 
     return label;
 }
 
+void AppendToolRow(int toolIndex, bool showFolder) {
+    ToolSnapshot snapshot = SnapshotTool(toolIndex);
+    ToolRow rowInfo;
+    rowInfo.index = toolIndex;
+    rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
+                                   g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
+
+    std::wstring title = showFolder ? snapshot.name + L" (" + snapshot.folder + L")" : snapshot.name;
+    rowInfo.name = CreateLabel(rowInfo.row, title);
+    rowInfo.status = CreateLabel(rowInfo.row, snapshot.status, SS_LEFT | SS_ENDELLIPSIS);
+    ApplyFont(rowInfo.status, g_smallFont);
+    rowInfo.progress = CreateWindowExW(0, PROGRESS_CLASSW, nullptr, WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
+                                       0, 0, 10, 10, rowInfo.row, nullptr, GetModuleHandleW(nullptr), nullptr);
+    rowInfo.button = CreateWindowExW(0, L"BUTTON", L"Baixar", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                                     0, 0, 10, 10, rowInfo.row,
+                                     reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_TOOL_BUTTON_BASE + toolIndex)),
+                                     GetModuleHandleW(nullptr), nullptr);
+    ApplyFont(rowInfo.button);
+
+    AddTooltip(rowInfo.row, snapshot.description);
+    AddTooltip(rowInfo.name, snapshot.description);
+    AddTooltip(rowInfo.button, L"Baixar " + snapshot.name);
+
+    g_toolRows.push_back(rowInfo);
+    UpdateToolRow(g_toolRows.back());
+}
+
+void AppendScriptRow(int scriptIndex) {
+    const ScriptItem& script = g_scripts[static_cast<size_t>(scriptIndex)];
+    ScriptRow rowInfo;
+    rowInfo.index = scriptIndex;
+    rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
+                                   g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
+    rowInfo.button = CreateWindowExW(0, L"BUTTON", script.name.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                                     0, 0, 10, 10, rowInfo.row,
+                                     reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SCRIPT_BUTTON_BASE + scriptIndex)),
+                                     GetModuleHandleW(nullptr), nullptr);
+    ApplyFont(rowInfo.button);
+    AddTooltip(rowInfo.button, script.description.empty() ? script.command : script.description);
+    g_scriptRows.push_back(rowInfo);
+}
+
+void AppendShortcutRow(int shortcutIndex) {
+    const ShortcutItem& shortcut = g_shortcuts[static_cast<size_t>(shortcutIndex)];
+    ShortcutRow rowInfo;
+    rowInfo.index = shortcutIndex;
+    rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
+                                   g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
+    rowInfo.button = CreateWindowExW(0, L"BUTTON", shortcut.name.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                                     0, 0, 10, 10, rowInfo.row,
+                                     reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SHORTCUT_BUTTON_BASE + shortcutIndex)),
+                                     GetModuleHandleW(nullptr), nullptr);
+    rowInfo.copyButton = CreateWindowExW(0, L"BUTTON", L"Copiar", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                                         0, 0, 10, 10, rowInfo.row,
+                                         reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SHORTCUT_COPY_BASE + shortcutIndex)),
+                                         GetModuleHandleW(nullptr), nullptr);
+    ApplyFont(rowInfo.button);
+    ApplyFont(rowInfo.copyButton);
+    const std::wstring tip = shortcut.description + L"\nWin+R: " + shortcut.command;
+    AddTooltip(rowInfo.button, tip);
+    AddTooltip(rowInfo.copyButton, L"Copiar comando Win+R: " + shortcut.command);
+    g_shortcutRows.push_back(rowInfo);
+}
+
 void RenderContent() {
     ClearRows();
     g_scrollPos = 0;
 
-    if (IsScriptsTab()) {
+    if (IsSearchActive()) {
+        // A busca abrange ferramentas (todas as categorias), scripts e atalhos do Windows ao mesmo tempo.
+        const std::vector<int> toolIndexes = VisibleToolIndexes();
+        const std::vector<int> scriptIndexes = VisibleScriptIndexes();
+        const std::vector<int> shortcutIndexes = VisibleShortcutIndexes();
+
+        if (toolIndexes.empty() && scriptIndexes.empty() && shortcutIndexes.empty()) {
+            HWND row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
+                                       g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
+            ToolRow emptyRow;
+            emptyRow.index = -1;
+            emptyRow.row = row;
+            emptyRow.name = CreateLabel(row, L"Nenhum item encontrado.");
+            g_toolRows.push_back(emptyRow);
+        } else {
+            for (int toolIndex : toolIndexes) {
+                AppendToolRow(toolIndex, true);
+            }
+            for (int scriptIndex : scriptIndexes) {
+                AppendScriptRow(scriptIndex);
+            }
+            for (int shortcutIndex : shortcutIndexes) {
+                AppendShortcutRow(shortcutIndex);
+            }
+        }
+    } else if (IsScriptsTab()) {
         const std::vector<int> scriptIndexes = VisibleScriptIndexes();
         if (scriptIndexes.empty()) {
             HWND row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
@@ -1518,18 +1699,7 @@ void RenderContent() {
             g_scriptRows.push_back(emptyRow);
         } else {
             for (int scriptIndex : scriptIndexes) {
-                const ScriptItem& script = g_scripts[static_cast<size_t>(scriptIndex)];
-                ScriptRow rowInfo;
-                rowInfo.index = scriptIndex;
-                rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
-                                               g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
-                rowInfo.button = CreateWindowExW(0, L"BUTTON", script.name.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-                                                 0, 0, 10, 10, rowInfo.row,
-                                                 reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SCRIPT_BUTTON_BASE + scriptIndex)),
-                                                 GetModuleHandleW(nullptr), nullptr);
-                ApplyFont(rowInfo.button);
-                AddTooltip(rowInfo.button, script.description.empty() ? script.command : script.description);
-                g_scriptRows.push_back(rowInfo);
+                AppendScriptRow(scriptIndex);
             }
         }
     } else if (IsShortcutsTab()) {
@@ -1546,25 +1716,7 @@ void RenderContent() {
             g_shortcutRows.push_back(emptyRow);
         } else {
             for (int shortcutIndex : shortcutIndexes) {
-                const ShortcutItem& shortcut = g_shortcuts[static_cast<size_t>(shortcutIndex)];
-                ShortcutRow rowInfo;
-                rowInfo.index = shortcutIndex;
-                rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
-                                               g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
-                rowInfo.button = CreateWindowExW(0, L"BUTTON", shortcut.name.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-                                                 0, 0, 10, 10, rowInfo.row,
-                                                 reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SHORTCUT_BUTTON_BASE + shortcutIndex)),
-                                                 GetModuleHandleW(nullptr), nullptr);
-                rowInfo.copyButton = CreateWindowExW(0, L"BUTTON", L"Copiar", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-                                                     0, 0, 10, 10, rowInfo.row,
-                                                     reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SHORTCUT_COPY_BASE + shortcutIndex)),
-                                                     GetModuleHandleW(nullptr), nullptr);
-                ApplyFont(rowInfo.button);
-                ApplyFont(rowInfo.copyButton);
-                const std::wstring tip = shortcut.description + L"\nWin+R: " + shortcut.command;
-                AddTooltip(rowInfo.button, tip);
-                AddTooltip(rowInfo.copyButton, L"Copiar comando Win+R: " + shortcut.command);
-                g_shortcutRows.push_back(rowInfo);
+                AppendShortcutRow(shortcutIndex);
             }
         }
     } else {
@@ -1578,32 +1730,8 @@ void RenderContent() {
             emptyRow.name = CreateLabel(row, L"Nenhum item encontrado.");
             g_toolRows.push_back(emptyRow);
         } else {
-            const bool showingSearchResults = !WindowText(g_searchEdit).empty();
             for (int toolIndex : toolIndexes) {
-                ToolSnapshot snapshot = SnapshotTool(toolIndex);
-                ToolRow rowInfo;
-                rowInfo.index = toolIndex;
-                rowInfo.row = CreateWindowExW(0, L"DownloaderRow", nullptr, WS_CHILD | WS_VISIBLE, 0, 0, 10, kRowHeight,
-                                               g_contentPanel, nullptr, GetModuleHandleW(nullptr), nullptr);
-
-                std::wstring title = showingSearchResults ? snapshot.name + L" (" + snapshot.folder + L")" : snapshot.name;
-                rowInfo.name = CreateLabel(rowInfo.row, title);
-                rowInfo.status = CreateLabel(rowInfo.row, snapshot.status, SS_LEFT | SS_ENDELLIPSIS);
-                ApplyFont(rowInfo.status, g_smallFont);
-                rowInfo.progress = CreateWindowExW(0, PROGRESS_CLASSW, nullptr, WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-                                                   0, 0, 10, 10, rowInfo.row, nullptr, GetModuleHandleW(nullptr), nullptr);
-                rowInfo.button = CreateWindowExW(0, L"BUTTON", L"Baixar", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-                                                 0, 0, 10, 10, rowInfo.row,
-                                                 reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_TOOL_BUTTON_BASE + toolIndex)),
-                                                 GetModuleHandleW(nullptr), nullptr);
-                ApplyFont(rowInfo.button);
-
-                AddTooltip(rowInfo.row, snapshot.description);
-                AddTooltip(rowInfo.name, snapshot.description);
-                AddTooltip(rowInfo.button, L"Baixar " + snapshot.name);
-
-                g_toolRows.push_back(rowInfo);
-                UpdateToolRow(g_toolRows.back());
+                AppendToolRow(toolIndex, false);
             }
         }
     }
@@ -1626,6 +1754,41 @@ void UpdateScrollInfo(int totalHeight, int panelHeight) {
     SetScrollInfo(g_contentPanel, SB_VERT, &info, TRUE);
 }
 
+void PositionToolRow(const ToolRow& row, int x, int y, int rowWidth) {
+    MoveWindow(row.row, x, y, rowWidth, kRowHeight, TRUE);
+
+    if (row.index < 0) {
+        if (row.name) {
+            MoveWindow(row.name, 12, 17, rowWidth - 24, 22, TRUE);
+        }
+        return;
+    }
+
+    const int buttonWidth = 118;
+    const int labelWidth = ClampInt(rowWidth / 3, 170, 300);
+    const int progressX = labelWidth + 24;
+    const int progressWidth = std::max(110, rowWidth - progressX - buttonWidth - 28);
+
+    MoveWindow(row.name, 12, 8, labelWidth, 20, TRUE);
+    MoveWindow(row.status, 12, 30, labelWidth, 18, TRUE);
+    MoveWindow(row.progress, progressX, 20, progressWidth, 14, TRUE);
+    MoveWindow(row.button, rowWidth - buttonWidth - 12, 11, buttonWidth, 30, TRUE);
+}
+
+void PositionScriptRow(const ScriptRow& row, int x, int y, int rowWidth) {
+    MoveWindow(row.row, x, y, rowWidth, kRowHeight, TRUE);
+    MoveWindow(row.button, 10, 10, std::max(120, rowWidth - 20), 32, TRUE);
+}
+
+void PositionShortcutRow(const ShortcutRow& row, int x, int y, int rowWidth) {
+    MoveWindow(row.row, x, y, rowWidth, kRowHeight, TRUE);
+    const int copyWidth = 82;
+    MoveWindow(row.button, 10, 10, std::max(120, rowWidth - copyWidth - 26), 32, TRUE);
+    if (row.copyButton) {
+        MoveWindow(row.copyButton, rowWidth - copyWidth - 10, 10, copyWidth, 32, TRUE);
+    }
+}
+
 void LayoutRows() {
     if (!g_contentPanel) {
         return;
@@ -1635,12 +1798,33 @@ void LayoutRows() {
     GetClientRect(g_contentPanel, &panelRect);
     const int panelWidth = panelRect.right - panelRect.left;
     const int panelHeight = panelRect.bottom - panelRect.top;
+    const int rowWidth = std::max(260, panelWidth - 18);
+
+    if (IsSearchActive()) {
+        const int count = static_cast<int>(g_toolRows.size() + g_scriptRows.size() + g_shortcutRows.size());
+        const int totalHeight = 8 + count * kRowHeight + std::max(0, count - 1) * kRowGap + 8;
+        UpdateScrollInfo(totalHeight, panelHeight);
+
+        int y = 8 - g_scrollPos;
+        for (const ToolRow& row : g_toolRows) {
+            PositionToolRow(row, 4, y, rowWidth);
+            y += kRowHeight + kRowGap;
+        }
+        for (const ScriptRow& row : g_scriptRows) {
+            PositionScriptRow(row, 4, y, rowWidth);
+            y += kRowHeight + kRowGap;
+        }
+        for (const ShortcutRow& row : g_shortcutRows) {
+            PositionShortcutRow(row, 4, y, rowWidth);
+            y += kRowHeight + kRowGap;
+        }
+        return;
+    }
 
     const int count = IsScriptsTab() ? static_cast<int>(g_scriptRows.size())
                       : IsShortcutsTab() ? static_cast<int>(g_shortcutRows.size())
                                          : static_cast<int>(g_toolRows.size());
     const bool gridMode = IsDownloadTab() && IsChecked(g_gridModeCheck) && count > 0;
-    const int rowWidth = std::max(260, panelWidth - 18);
     const int gridColumns = gridMode ? std::max(1, rowWidth / 230) : 1;
     const int gridRows = gridMode ? ((count + gridColumns - 1) / gridColumns) : count;
     const int totalHeight = gridMode
@@ -1652,8 +1836,7 @@ void LayoutRows() {
 
     if (IsScriptsTab()) {
         for (const ScriptRow& row : g_scriptRows) {
-            MoveWindow(row.row, 4, y, rowWidth, kRowHeight, TRUE);
-            MoveWindow(row.button, 10, 10, std::max(120, rowWidth - 20), 32, TRUE);
+            PositionScriptRow(row, 4, y, rowWidth);
             y += kRowHeight + kRowGap;
         }
         return;
@@ -1661,12 +1844,7 @@ void LayoutRows() {
 
     if (IsShortcutsTab()) {
         for (const ShortcutRow& row : g_shortcutRows) {
-            MoveWindow(row.row, 4, y, rowWidth, kRowHeight, TRUE);
-            const int copyWidth = 82;
-            MoveWindow(row.button, 10, 10, std::max(120, rowWidth - copyWidth - 26), 32, TRUE);
-            if (row.copyButton) {
-                MoveWindow(row.copyButton, rowWidth - copyWidth - 10, 10, copyWidth, 32, TRUE);
-            }
+            PositionShortcutRow(row, 4, y, rowWidth);
             y += kRowHeight + kRowGap;
         }
         return;
@@ -1701,26 +1879,7 @@ void LayoutRows() {
     }
 
     for (const ToolRow& row : g_toolRows) {
-        MoveWindow(row.row, 4, y, rowWidth, kRowHeight, TRUE);
-
-        if (row.index < 0) {
-            if (row.name) {
-                MoveWindow(row.name, 12, 17, rowWidth - 24, 22, TRUE);
-            }
-            y += kRowHeight + kRowGap;
-            continue;
-        }
-
-        const int buttonWidth = 118;
-        const int labelWidth = ClampInt(rowWidth / 3, 170, 300);
-        const int progressX = labelWidth + 24;
-        const int progressWidth = std::max(110, rowWidth - progressX - buttonWidth - 28);
-
-        MoveWindow(row.name, 12, 8, labelWidth, 20, TRUE);
-        MoveWindow(row.status, 12, 30, labelWidth, 18, TRUE);
-        MoveWindow(row.progress, progressX, 20, progressWidth, 14, TRUE);
-        MoveWindow(row.button, rowWidth - buttonWidth - 12, 11, buttonWidth, 30, TRUE);
-
+        PositionToolRow(row, 4, y, rowWidth);
         y += kRowHeight + kRowGap;
     }
 }
@@ -1733,7 +1892,7 @@ void UpdateBatchButtons() {
         return;
     }
 
-    const bool showTabButton = IsDownloadTab();
+    const bool showTabButton = IsDownloadTab() && !IsSearchActive();
     ShowWindow(g_downloadTabButton, showTabButton ? SW_SHOW : SW_HIDE);
     EnableWindow(g_downloadTabButton, showTabButton && !running);
 
@@ -1747,7 +1906,7 @@ void LayoutMainWindow() {
     GetClientRect(g_mainWindow, &rect);
     const int width = rect.right - rect.left;
     const int height = rect.bottom - rect.top;
-    const bool showTabDownloadButton = IsDownloadTab();
+    const bool showTabDownloadButton = IsDownloadTab() && !IsSearchActive();
     const int footerHeight = showTabDownloadButton ? kFooterHeight : 0;
 
     const int searchWidth = ClampInt(width / 3, 300, 460);
@@ -1755,6 +1914,7 @@ void LayoutMainWindow() {
     MoveWindow(g_askDeleteCheck, 16, 33, 178, 20, TRUE);
     MoveWindow(g_gridModeCheck, 16, 58, 150, 20, TRUE);
     MoveWindow(g_searchEdit, std::max(210, (width - searchWidth) / 2), 32, searchWidth, 28, TRUE);
+    MoveWindow(g_themeToggleButton, std::max(12, width - 134), 4, 122, 24, TRUE);
     MoveWindow(g_downloadAllButton, std::max(12, width - 190), 31, 174, 30, TRUE);
     MoveWindow(g_tabs, kOuterMargin, kTabsTop, std::max(280, width - kOuterMargin * 2), kTabsHeight, TRUE);
     MoveWindow(g_contentPanel, kOuterMargin, kContentTop, std::max(280, width - kOuterMargin * 2),
@@ -1780,15 +1940,13 @@ LRESULT CALLBACK RowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
         RECT rect{};
         GetClientRect(hwnd, &rect);
         FillRect(dc, &rect, g_rowBrush);
-        HBRUSH border = CreateSolidBrush(RGB(214, 220, 228));
-        FrameRect(dc, &rect, border);
-        DeleteObject(border);
+        FrameRect(dc, &rect, g_borderBrush);
         return 1;
     }
     case WM_CTLCOLORSTATIC: {
         HDC dc = reinterpret_cast<HDC>(wParam);
         SetBkMode(dc, TRANSPARENT);
-        SetTextColor(dc, RGB(25, 32, 43));
+        SetTextColor(dc, g_theme.text);
         return reinterpret_cast<LRESULT>(g_rowBrush);
     }
     default:
@@ -1873,7 +2031,7 @@ void CreateMainControls(HWND hwnd) {
                                    reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_SEARCH)),
                                    GetModuleHandleW(nullptr), nullptr);
     ApplyFont(g_searchEdit);
-    SendMessageW(g_searchEdit, EM_SETCUEBANNER, TRUE, reinterpret_cast<LPARAM>(L"Pesquisar ferramentas..."));
+    SendMessageW(g_searchEdit, EM_SETCUEBANNER, TRUE, reinterpret_cast<LPARAM>(L"Pesquisar ferramentas, scripts e atalhos..."));
 
     g_askExtractCheck = CreateWindowExW(0, L"BUTTON", L"Perguntar extrair ZIP",
                                         WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,
@@ -1900,6 +2058,14 @@ void CreateMainControls(HWND hwnd) {
                                       GetModuleHandleW(nullptr), nullptr);
     ApplyFont(g_gridModeCheck, g_smallFont);
     AddTooltip(g_gridModeCheck, L"Alterna as abas de download entre lista e quadrados compactos.");
+
+    g_themeToggleButton = CreateWindowExW(0, L"BUTTON", g_darkMode ? L"Modo claro" : L"Modo escuro",
+                                          WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                                          0, 0, 10, 10, hwnd,
+                                          reinterpret_cast<HMENU>(static_cast<INT_PTR>(ID_THEME_TOGGLE)),
+                                          GetModuleHandleW(nullptr), nullptr);
+    ApplyFont(g_themeToggleButton, g_smallFont);
+    AddTooltip(g_themeToggleButton, L"Alterna entre o modo claro e o modo escuro da interface.");
 
     g_downloadAllButton = CreateWindowExW(0, L"BUTTON", L"Download All Tools",
                                           WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
@@ -1940,9 +2106,7 @@ LRESULT CALLBACK MainProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message) {
     case WM_CREATE:
         g_mainWindow = hwnd;
-        g_windowBrush = CreateSolidBrush(RGB(244, 247, 251));
-        g_panelBrush = CreateSolidBrush(RGB(255, 255, 255));
-        g_rowBrush = CreateSolidBrush(RGB(250, 252, 255));
+        ApplyTheme(g_darkMode);
         g_font = CreateFontW(-16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
                              OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY,
                              DEFAULT_PITCH | FF_DONTCARE, L"Segoe UI");
@@ -1993,14 +2157,14 @@ LRESULT CALLBACK MainProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CTLCOLORSTATIC: {
         HDC dc = reinterpret_cast<HDC>(wParam);
         SetBkMode(dc, TRANSPARENT);
-        SetTextColor(dc, RGB(25, 32, 43));
+        SetTextColor(dc, g_theme.text);
         return reinterpret_cast<LRESULT>(g_windowBrush);
     }
 
     case WM_CTLCOLOREDIT: {
         HDC dc = reinterpret_cast<HDC>(wParam);
-        SetBkColor(dc, RGB(255, 255, 255));
-        SetTextColor(dc, RGB(25, 32, 43));
+        SetBkColor(dc, g_theme.editBackground);
+        SetTextColor(dc, g_theme.editText);
         return reinterpret_cast<LRESULT>(g_panelBrush);
     }
 
@@ -2029,7 +2193,7 @@ LRESULT CALLBACK MainProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             tool = g_tools.at(static_cast<size_t>(index));
         }
 
-        if (tool.archive) {
+        if (tool.archive && IsZipFile(tool.filename)) {
             bool shouldExtract = true;
             if (IsChecked(g_askExtractCheck)) {
                 const std::wstring extractQuestion = L"O download de \"" + tool.name + L"\" terminou.\nDeseja extrair o arquivo compactado?";
@@ -2077,6 +2241,9 @@ LRESULT CALLBACK MainProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         if (g_rowBrush) {
             DeleteObject(g_rowBrush);
+        }
+        if (g_borderBrush) {
+            DeleteObject(g_borderBrush);
         }
         PostQuitMessage(0);
         return 0;
