@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"/home/sete/Desktop/Coding/ToolDownloader/build/cmake_install.cmake"
+		"/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

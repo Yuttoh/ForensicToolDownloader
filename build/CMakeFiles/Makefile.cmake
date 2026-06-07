@@ -7,11 +7,11 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/home/sete/Desktop/Coding/ToolDownloader/CMakeLists.txt"
+  "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/CMakeLists.txt"
   "CMakeFiles/4.3.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.3.3/CMakeRCCompiler.cmake"
   "CMakeFiles/4.3.3/CMakeSystem.cmake"
-  "/home/sete/Desktop/Coding/ToolDownloader/scripts.example.ini"
+  "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/scripts.example.ini"
   "/usr/share/cmake/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
   "/usr/share/cmake/Modules/CMakeGenericSystem.cmake"

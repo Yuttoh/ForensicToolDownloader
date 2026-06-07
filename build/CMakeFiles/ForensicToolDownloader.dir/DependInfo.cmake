@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_RC
-  "/home/sete/Desktop/Coding/ToolDownloader/src/app.rc" "/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res"
+  "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/app.rc" "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res"
   )
 
 # Preprocessor definitions for this target.
@@ -25,7 +25,7 @@ set(CMAKE_RC_TARGET_INCLUDE_PATH
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/sete/Desktop/Coding/ToolDownloader/src/main.cpp" "CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj" "gcc" "CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj.d"
+  "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp" "CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj" "gcc" "CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

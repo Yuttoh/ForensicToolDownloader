@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sete/Desktop/Coding/ToolDownloader
+CMAKE_SOURCE_DIR = /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sete/Desktop/Coding/ToolDownloader/build
+CMAKE_BINARY_DIR = /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ForensicToolDownloader.dir/depend.make
@@ -73,23 +73,23 @@ CMakeFiles/ForensicToolDownloader.dir/codegen:
 .PHONY : CMakeFiles/ForensicToolDownloader.dir/codegen
 
 CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj: CMakeFiles/ForensicToolDownloader.dir/flags.make
-CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj: /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp
+CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj: /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp
 CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj: CMakeFiles/ForensicToolDownloader.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj"
-	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -MF CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj.d -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -c /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj"
+	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -MF CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj.d -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -c /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp
 
 CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.i"
-	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp > CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.i
+	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp > CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.i
 
 CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.s"
-	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.s
+	/usr/bin/x86_64-w64-mingw32-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.s
 
 CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res: CMakeFiles/ForensicToolDownloader.dir/flags.make
-CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res: /home/sete/Desktop/Coding/ToolDownloader/src/app.rc
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building RC object CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res"
-	x86_64-w64-mingw32-windres -O coff $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) /home/sete/Desktop/Coding/ToolDownloader/src/app.rc CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res
+CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res: /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/app.rc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building RC object CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res"
+	x86_64-w64-mingw32-windres -O coff $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/app.rc CMakeFiles/ForensicToolDownloader.dir/src/app.rc.res
 
 # Object files for target ForensicToolDownloader
 ForensicToolDownloader_OBJECTS = \
@@ -105,7 +105,7 @@ ForensicToolDownloader.exe: CMakeFiles/ForensicToolDownloader.dir/build.make
 ForensicToolDownloader.exe: CMakeFiles/ForensicToolDownloader.dir/linkLibs.rsp
 ForensicToolDownloader.exe: CMakeFiles/ForensicToolDownloader.dir/objects1.rsp
 ForensicToolDownloader.exe: CMakeFiles/ForensicToolDownloader.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ForensicToolDownloader.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ForensicToolDownloader.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ForensicToolDownloader.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -117,6 +117,6 @@ CMakeFiles/ForensicToolDownloader.dir/clean:
 .PHONY : CMakeFiles/ForensicToolDownloader.dir/clean
 
 CMakeFiles/ForensicToolDownloader.dir/depend:
-	cd /home/sete/Desktop/Coding/ToolDownloader/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sete/Desktop/Coding/ToolDownloader /home/sete/Desktop/Coding/ToolDownloader /home/sete/Desktop/Coding/ToolDownloader/build /home/sete/Desktop/Coding/ToolDownloader/build /home/sete/Desktop/Coding/ToolDownloader/build/CMakeFiles/ForensicToolDownloader.dir/DependInfo.cmake "--color=$(COLOR)" ForensicToolDownloader
+	cd /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build/CMakeFiles/ForensicToolDownloader.dir/DependInfo.cmake "--color=$(COLOR)" ForensicToolDownloader
 .PHONY : CMakeFiles/ForensicToolDownloader.dir/depend
 

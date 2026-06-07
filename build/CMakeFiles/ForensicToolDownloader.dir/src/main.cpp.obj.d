@@ -1,5 +1,5 @@
 CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj: \
- /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp \
+ /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp \
  /usr/x86_64-w64-mingw32/include/windows.h \
  /usr/x86_64-w64-mingw32/include/_mingw.h \
  /usr/x86_64-w64-mingw32/include/_mingw_mac.h \

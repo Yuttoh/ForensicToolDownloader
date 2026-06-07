@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/sete/Desktop/Coding/ToolDownloader/src/app.rc
+/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/app.rc
 windows.h
 -
 

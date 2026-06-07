@@ -1,8 +1,8 @@
 [
 {
-  "directory": "/home/sete/Desktop/Coding/ToolDownloader/build",
-  "command": "/usr/bin/x86_64-w64-mingw32-g++ -DNOMINMAX -DUNICODE -DWIN32_LEAN_AND_MEAN -D_UNICODE  -std=c++17 -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -c /home/sete/Desktop/Coding/ToolDownloader/src/main.cpp",
-  "file": "/home/sete/Desktop/Coding/ToolDownloader/src/main.cpp",
+  "directory": "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/build",
+  "command": "/usr/bin/x86_64-w64-mingw32-g++ -DNOMINMAX -DUNICODE -DWIN32_LEAN_AND_MEAN -D_UNICODE  -std=c++17 -o CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj -c /home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp",
+  "file": "/home/sete/Desktop/Coding/GitHubDesktop/ForensicToolDownloader/src/main.cpp",
   "output": "CMakeFiles/ForensicToolDownloader.dir/src/main.cpp.obj"
 }
 ]
