@@ -630,6 +630,10 @@ void InitializeTools() {
                  L"https://github.com/volatilityfoundation/volatility3/releases/download/v2.28.0/volatility3-win-exes-2.28.0.zip",
                  L"Volatility3-win-exes-2.28.0.zip",
                  L"Ferramenta da Volatility para análise de memória profunda.", true),
+        MakeTool(L"DetectItEasy", L"Others",
+                 L"https://github.com/horsicq/DIE-engine/releases/download/3.21/die_win64_portable_3.21_x64.zip",
+                 L"Die_win64_portable_3.21_x64.zip",
+                 L"Ferramenta para analisar arquivos forensemente.", true),
 
         MakeTool(L"JournalTrace", L"Spokwn",
                  L"https://github.com/spokwn/JournalTrace/releases/download/1.2/JournalTrace.exe",
@@ -700,6 +704,14 @@ void InitializeTools() {
                  L"https://github.com/Orbdiff/StringsParser/releases/download/v1.0/StringsParser.exe",
                  L"StringsParser.exe",
                  L"Parser para artefatos da AppInfo, DiagTrach e próprios seus.", false),
+        MakeTool(L"JournalParser", L"Orbdiff",
+                 L"https://github.com/Orbdiff/JournalParser/releases/download/v1.2/JournalParser.exe",
+                 L"JournalParser.exe",
+                 L"Parser para o diário $J.", false),
+        MakeTool(L"PrefetchView++", L"Orbdiff",
+                 L"https://github.com/Orbdiff/PrefetchView/releases/download/v1.6.7/pv++.exe",
+                 L"pv++.exe",
+                 L"Analisador da prefetch com verificação de assinatura e Yara Rule.", false),
 
         MakeTool(L"BrowserDownloadsView", L"Nirsoft",
                  L"https://www.nirsoft.net/utils/browserdownloadsview-x64.zip",
@@ -754,6 +766,10 @@ void InitializeScripts() {
                    L"Exporta o HWID do usuário para as Downloads.",
                    L"powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; Invoke-Expression (Invoke-RestMethod 'https://gist.githubusercontent.com/Smoothzada/ad9b391a3bba387028f2710394a61e18/raw/4f91e10608944047d924beec6cb83d0e2e7abd8a/Hwid-Acquisition.ps1')\"",
                    true),
+        MakeScript(L"JarParser (Sete)",
+                   L"Um scanner de jars renomeados pelo sistema (Processo lento)",
+                   L"powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force; Invoke-Expression (Invoke-RestMethod 'https://raw.githubusercontent.com/Yuttoh/JarScanner/refs/heads/main/JarScanner.ps1')\"",
+                   true),
     };
 }
 
@@ -775,9 +791,9 @@ void InitializeShortcuts() {
                      L"Logs dos aplicativos usados pelo CLR v4.0."),
         MakeShortcut(L"WER ReportArchive", L"%ProgramData%\\Microsoft\\Windows\\WER\\ReportArchive",
                      L"Mostra os appcrash arquivados pelo Windows Error Reporting."),
-        MakeShortcut(L"Programas instalados", L"appwiz.cpl",
+        MakeShortcut(L"appwiz.cpl", L"appwiz.cpl",
                      L"Mostra os programas instalados."),
-        MakeShortcut(L"Usuarios do computador", L"netplwiz",
+        MakeShortcut(L"netplwiz", L"netplwiz",
                      L"Mostra os usuarios do computador."),
         MakeShortcut(L"Icones do computador", L"explorer.exe shell:::{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}",
                      L"Mostra os icones do computador."),
